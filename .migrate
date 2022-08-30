@@ -1,0 +1,9 @@
+{
+  "lastRun": "1661849693942-seed-secrets-collection.js",
+  "migrations": [
+    {
+      "title": "1661849693942-seed-secrets-collection.js",
+      "timestamp": 1661853523382
+    }
+  ]
+}
