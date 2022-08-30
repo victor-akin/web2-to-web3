@@ -1,0 +1,14 @@
+{
+	"name": "web2-to-web3",
+	"version": "1.0.0",
+	"description": "Web2 to Web3 App",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/app",
+		"dev": "node src/app",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
