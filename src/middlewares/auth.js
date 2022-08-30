@@ -1,4 +1,3 @@
-const User = require('../models/userModel')
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET_KEY } = process.env
 
@@ -7,10 +6,9 @@ exports.isAuthenticated = async (req, res, next) => {
     token = token.split(' ')[1]
 
     try {
-        let userToken = jwt.verify(token, JWT_SECRET_KEY);
-        let user = await User.findById(userToken.id)
+        let userToken = jwt.verify(token, JWT_SECRET_KEY)
 
-        req.user = user
+        req.address = userToken.address
 
         next()
     } catch (err) {

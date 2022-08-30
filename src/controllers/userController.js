@@ -1,35 +1,36 @@
-const User = require('../models/userModel')
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET_KEY } = process.env
+const { cryptoWaitReady, decodeAddress, signatureVerify } = require('@polkadot/util-crypto');
+const { u8aToHex } = require('@polkadot/util');
 
-exports.loginOrSignup = async (req, res) => {
+exports.signup = async (req, res) => {
 
-    let user = await User.findOne({ username: req.body.username })
+    const { message, username, signature } = req.body
 
     try {
-        if (user == null) {
-            req.body.username = req.body.username.trim()
+        await cryptoWaitReady();
 
-            user = await User.create(req.body)
+        const isValid = isValidSignature(message, signature, username);
 
-            await user.save()
-        } else {
-            let isPasswordValid = await user.validPassword(req.body.password)
+        if (!isValid) throw new Error('invalid signature')
 
-            if (!isPasswordValid) return res.status(400).send({ message: "Password is not correct" });
-        }
     } catch (err) {
-        return res.status(400).send({ message: "Invalid input" })
+        return res.status(400).send({ message: 'unable to verify' })
     }
 
-    let token = jwt.sign({
-        id: user._id.toString(),
-        username: user.username
-    }, JWT_SECRET_KEY, { expiresIn: 60 * 60 });
+    let token = jwt.sign({ username }, JWT_SECRET_KEY, { expiresIn: 60 * 60 });
 
     res.header('Authorization', `Bearer ${token}`)
 
     res.status(200).send({ message: "logged in" })
 }
+
+const isValidSignature = (signedMessage, signature, address) => {
+    const publicKey = decodeAddress(address);
+
+    const hexPublicKey = u8aToHex(publicKey);
+
+    return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
+};
 
 
