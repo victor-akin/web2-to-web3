@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const secretController = require('../controllers/secretController')
-const auth = require('../middlewares/auth')
+const { isAuthenticated } = require('../middlewares/auth')
 
 router.get(
     '/secret',
-    auth.isAuthenticated,
+    isAuthenticated,
     secretController.getRandomSecret
 )
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 module.exports = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/web2-to-web3');
+        await mongoose.connect(process.env.MONGO_DB_URI);
     } catch (error) {
         console.error(error)
     }
