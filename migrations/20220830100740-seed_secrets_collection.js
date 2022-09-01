@@ -8,5 +8,6 @@ module.exports = {
     },
 
     async down(db, client) {
+        db.collection('secrets').deleteMany()
     }
 };
