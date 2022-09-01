@@ -6,4 +6,4 @@
   - `task-one` (Web2, a typical centralized app.)
   - `task-two` (Web3, go decentralized.)
   - `task-three` (Challenge codes.)
-  - `main` will have the final version off the app which is same as branch `task-three`
+  - `main` will have the final version of the app which is same as branch `task-three`
