@@ -11,4 +11,4 @@ app.get('/', (req, res) => res.send('server is up.'))
 app.use('/api/v1', require('./routes/user-routes'))
 app.use('/api/v1', require('./routes/secret-routes'))
 
-app.listen(5000)
+app.listen(process.env.PORT)
