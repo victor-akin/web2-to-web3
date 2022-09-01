@@ -3,9 +3,12 @@ exports.isValidSignupPayload = (req, res, next) => {
 
     if (! /^[a-z0-9]+$/gi.test(username)) return res.status(400).send({ message: "username is invalid" })
 
+    if (message === undefined) return res.status(400).send({ message: "message field is required" })
+
     if (message.indexOf(username) === -1 || message.indexOf(challengeCode) === -1) {
         return res.status(400).send({ message: "message must have username and challengeCode in it" })
     }
+
     next()
 }
 

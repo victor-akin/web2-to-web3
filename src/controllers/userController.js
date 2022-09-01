@@ -11,6 +11,8 @@ exports.signup = async (req, res) => {
 
     let lastChallenge = await ChallengeCode.findOne({ challenge: challengeCode })
 
+    if (lastChallenge === null) return res.status(400).send({ message: 'invalid challengeCode' })
+
     if (lastChallenge.isExpired() || lastChallenge.hasBeenUsed()) {
         return res.status(400).send({ message: 'time expired for challengeCode, request for a new one' })
     }
