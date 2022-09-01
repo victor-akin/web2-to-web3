@@ -6,6 +6,8 @@ require('./models/db')()
 
 app.use(express.json())
 
+app.get('/', (req, res) => res.send('server is up.'))
+
 app.use('/api/v1', require('./routes/user-routes'))
 app.use('/api/v1', require('./routes/secret-routes'))
 
