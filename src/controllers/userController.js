@@ -13,7 +13,11 @@ exports.signup = async (req, res) => {
 
     if (lastChallenge === null) return res.status(400).send({ message: 'invalid challengeCode' })
 
-    if (lastChallenge.isExpired() || lastChallenge.hasBeenUsed()) {
+    if (lastChallenge.hasBeenUsed()) {
+        return res.status(400).send({ message: 'challengeCode has been used, request for a new one' })
+    }
+
+    if (lastChallenge.isExpired()) {
         return res.status(400).send({ message: 'time expired for challengeCode, request for a new one' })
     }
 
